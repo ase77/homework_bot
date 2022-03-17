@@ -17,7 +17,7 @@ handler = RotatingFileHandler(
     'main.log',
     maxBytes=50000000,
     backupCount=2
-    )
+)
 
 formatter = logging.Formatter(
     '[%(asctime)s: %(levelname)s: %(lineno)d] %(message)s'
@@ -41,15 +41,18 @@ HOMEWORK_STATUSES = {
     'rejected': 'Работа проверена: у ревьюера есть замечания.'
 }
 
+
 def send_message(bot, message):
-    '''Отправляет сообщение в Telegram чат'''
+    """Отправляет сообщение в Telegram чат."""
     logger.info('удачная отправка сообщения в Telegram')
     return bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
 
 
 def get_api_answer(current_timestamp):
-    '''Делает запрос к эндпоинту API-сервиса. В случае успешного запроса
-    возвращает ответ API, преобразовав его к типам данных Python'''
+    """
+    Делает запрос к эндпоинту API-сервиса.
+    Возвращает ответ API, преобразовав его к типам данных Python.
+    """
     timestamp = current_timestamp or int(time.time())
     params = {'from_date': timestamp}
 
@@ -62,7 +65,7 @@ def get_api_answer(current_timestamp):
 
 
 def check_response(response):
-    '''Проверяет ответ API на корректность'''
+    """Проверяет ответ API на корректность."""
     if not isinstance(response['homeworks'], list):
         logger.error('ответ от API приходит не в виде списка')
         raise Exception('ответ от API приходит не в виде списка')
@@ -75,7 +78,7 @@ def check_response(response):
 
 
 def parse_status(homework):
-    '''Извлекает из информации о домашней работе статус этой работы'''
+    """Извлекает из информации о домашней работе статус этой работы."""
     homework_name = homework['homework_name']
     homework_status = homework['status']
 
@@ -89,14 +92,14 @@ def parse_status(homework):
 
 
 def check_tokens():
-    '''Проверяет доступность переменных окружения'''
+    """Проверяет доступность переменных окружения."""
     if PRACTICUM_TOKEN and TELEGRAM_TOKEN and TELEGRAM_CHAT_ID:
         return True
     return False
 
+
 def main():
     """Основная логика работы бота."""
-
     if not check_tokens():
         logger.critical('отсутствие обязательных переменных окружения')
         raise Exception("TOKEN не найден")
