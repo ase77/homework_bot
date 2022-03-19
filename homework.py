@@ -17,7 +17,7 @@ logger.setLevel(logging.DEBUG)
 dir_app = os.path.dirname(__file__)
 
 handler = RotatingFileHandler(
-    f'{dir_app}/log/main.log',
+    f'{dir_app}/main.log',
     maxBytes=50000000,
     backupCount=2,
     encoding='UTF-8'
