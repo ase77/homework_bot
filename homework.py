@@ -107,17 +107,7 @@ def parse_status(homework):
         logger.error(message_error)
         raise Exception(message_error)
     homework_status = homework[status_key]
-
-    # наконец выдалась возможность тебя поприветствовать. Привет!)
-    # если проверяю ключ homework_name, то не проходит pytest
-    # при этом бот работает, логгер ошибки не выдаёт, грешу на pytest
-    # пробовал разные способы, в том числе через цикл как с токенами
-    homework_key = 'homework_name'
-    # if homework_key not in homework:
-    #     message_error = f'отсутствует ключ "{homework_key}" в ответе API'
-    #     logger.error(message_error)
-    #     raise Exception(message_error)
-    homework_name = homework[homework_key]
+    homework_name = homework['homework_name']
 
     if homework_status not in HOMEWORK_STATUSES:
         message_error = f'Неизвестный статус в ответе API: "{homework_status}"'
