@@ -39,3 +39,11 @@ Cоздать и активировать виртуальное окружен�
 python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+Создать файл `.env` в корне проекта:
+
+```
+PRACTICUM_TOKEN=...
+TELEGRAM_TOKEN=...
+TELEGRAM_CHAT_ID=...
+```
